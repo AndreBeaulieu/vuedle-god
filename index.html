@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    <meta charset="utf-8">
+    <title>Vuedle God</title>
+    <link rel="icon" type="image/ico" href="img/favicon.ico">
+    <link rel="stylesheet" href="css/style.css">
+    <meta name="description" content="Recreation of Doodle God in Vue">
+  </head>
+
+  <body>
+    <div id="app">
+      <div id="elements">
+        <thing thing-type="Fire"></thing>
+        <thing thing-type="Earth"></thing>
+      </div>
+      <div id="combine">
+        <combining-thing :selected-thing="selectedThingOne" :key="selectedThingOne"></combining-thing>
+        <combining-thing :selected-thing="selectedThingTwo" :key="selectedThingTwo"></combining-thing>
+      </div>
+    </div>
+    <script> 
+      Vue.component('thing', {
+        props:['thingType'],
+
+        template: 
+        '<div class="thing" v-on:click="addThing(thingName)">\
+          <img :src="imgsrc" alt="thing_img" width="128px" height="128px">\
+          <p>{{thingName}}</p>\
+          </div>',
+
+        data: function(){
+          var imgsrc = findThingData(this.thingType);
+          return{
+            imgsrc: imgsrc,
+            thingName: this.thingType,
+          }
+        },
+        methods:{
+          addThing: function(selectedThing){
+            if(app._data.selectedThingOne == ""){
+              app._data.selectedThingOne = selectedThing;
+            }else{
+              app._data.selectedThingTwo = selectedThing;
+              combineThings();
+              setTimeout(function(){
+                app._data.selectedThingOne = "";
+                app._data.selectedThingTwo = "";
+              }, 2000);
+            }
+          }
+        }
+      });
+
+      Vue.component('combining-thing',{
+        props:['selectedThing'],
+
+        template: 
+        '<div class="combining-thing">\
+          <img :src="imgsrc" alt="combining_thing_img" width="128px" height="128px">\
+          <p>{{thingName}}</p>\
+          </div>',
+
+        data: function(){
+          var imgsrc = findThingData(this.selectedThing);
+          return{
+            imgsrc: imgsrc,
+            thingName: this.selectedThing,
+          }
+        },
+      });
+
+    function findThingData(thingType){
+      var imgsrc;
+      switch(thingType){
+        case 'Fire':
+          imgsrc = "/img/fire.png";
+          break;
+        case 'Earth':
+          imgsrc = "/img/earth.png";
+          break;
+        case 'Volcano':
+          imgsrc = "/img/volcano.png";
+          break;
+      }
+      return imgsrc;
+    }
+    function combineThings(){
+      const thingCombo = app.selectedThingOne + app.selectedThingTwo;
+      console.log(thingCombo)
+
+      var newThing = null;
+      switch(thingCombo){
+        case 'FireEarth': case 'EarthFire':
+          newThing = 'Volcano'
+          break;
+      }
+      if(newThing != null){
+        const createdThing = document.createElement('thing')
+        createdThing.setAttribute('thing-type', newThing);
+        const elemDiv = document.getElementById("elements");
+        elemDiv.append(createdThing);
+      }
+      console.log(newThing)
+    }
+
+      var app = new Vue({
+        el: '#app',
+        data:{
+          selectedThingOne: '',
+          selectedThingTwo: '',
+        },
+      });
+    </script>
+  </body>
+</html>
