@@ -12,80 +12,73 @@
   <body>
     <div id="app">
       <div id="elements">
-        <thing thing-type="Fire"></thing>
-        <thing thing-type="Earth"></thing>
+        <div v-for="thing in thingsList" v-if="thing.unlocked">
+          <thing :thing-type="thing.thingType" :imgsrc="thing.imgsrc"></thing>
+        </div>
       </div>
       <div id="combine">
-        <combining-thing :selected-thing="selectedThingOne" :key="selectedThingOne"></combining-thing>
-        <combining-thing :selected-thing="selectedThingTwo" :key="selectedThingTwo"></combining-thing>
+        <combining-thing :selected-thing="selectedThingOne" :imgsrc="selectedThingOneImg" :key="selectedThingOne"></combining-thing>
+        <combining-thing :selected-thing="selectedThingTwo" :imgsrc="selectedThingTwoImg" :key="selectedThingTwo"></combining-thing>
       </div>
     </div>
     <script> 
+
       Vue.component('thing', {
-        props:['thingType'],
+        props:['thingType', 'imgsrc'],
 
         template: 
-        '<div class="thing" v-on:click="addThing(thingName)">\
-          <img :src="imgsrc" alt="thing_img" width="128px" height="128px">\
+        '<div class="thing" v-on:click="addThing(thingName, imgurl)">\
+          <img :src="imgurl" alt="thing_img" width="128px" height="128px">\
           <p>{{thingName}}</p>\
           </div>',
 
         data: function(){
-          var imgsrc = findThingData(this.thingType);
           return{
-            imgsrc: imgsrc,
+            imgurl: this.imgsrc,
             thingName: this.thingType,
           }
         },
         methods:{
-          addThing: function(selectedThing){
+          addThing: function(selectedThing, selectedThingImg){
             if(app._data.selectedThingOne == ""){
               app._data.selectedThingOne = selectedThing;
+              app._data.selectedThingOneImg = selectedThingImg;
             }else{
               app._data.selectedThingTwo = selectedThing;
+              app._data.selectedThingTwoImg = selectedThingImg;
               combineThings();
               setTimeout(function(){
                 app._data.selectedThingOne = "";
+                app._data.selectedThingOneImg = "";
                 app._data.selectedThingTwo = "";
+                app._data.selectedThingTwoImg = "";
               }, 2000);
             }
+          },
+          searchImgsrc: function(thingType){
+            console.log("test complete")
           }
         }
       });
 
       Vue.component('combining-thing',{
-        props:['selectedThing'],
+        props:['selectedThing', 'imgsrc'],
 
         template: 
         '<div class="combining-thing">\
-          <img :src="imgsrc" alt="combining_thing_img" width="128px" height="128px">\
+          <img :src="imgurl" alt="combining_thing_img" width="128px" height="128px">\
           <p>{{thingName}}</p>\
           </div>',
 
         data: function(){
-          var imgsrc = findThingData(this.selectedThing);
           return{
-            imgsrc: imgsrc,
+            imgurl: this.imgsrc,
             thingName: this.selectedThing,
           }
         },
       });
 
-    function findThingData(thingType){
-      var imgsrc;
-      switch(thingType){
-        case 'Fire':
-          imgsrc = "/img/fire.png";
-          break;
-        case 'Earth':
-          imgsrc = "/img/earth.png";
-          break;
-        case 'Volcano':
-          imgsrc = "/img/volcano.png";
-          break;
-      }
-      return imgsrc;
-    }
+
     function combineThings(){
       const thingCombo = app.selectedThingOne + app.selectedThingTwo;
       console.log(thingCombo)
@@ -93,20 +86,80 @@
       var newThing = null;
       switch(thingCombo){
         case 'FireEarth': case 'EarthFire':
+          newThing = 'Lava'
+          break;
+          case 'LavaEarth': case 'EarthLava':
           newThing = 'Volcano'
+          break;
+          case 'AirEarth': case 'EarthAir':
+          newThing = 'Dust'
+          break;
+          case 'EarthWater': case 'WaterEarth':
+          newThing = 'Swamp'
+          break;
+          case 'AirFire': case 'FireAir':
+          newThing = 'Energy'
+          break;
+          case 'AirWater': case 'WaterAir':
+          newThing = 'Steam'
+          break;
+          case 'AirEnergy': case 'EnergyAir':
+          newThing = 'Storm'
+          break;
+          case 'AirLava': case 'LavaAir':
+          newThing = 'Stone'
+          break;
+          case 'FireWater': case 'WaterFire':
+          newThing = 'Alcohol'
+          break;
+          case 'FireStone': case 'StoneFire':
+          newThing = 'Metal'
+          break;
+          case 'AirStone': case 'StoneAir':
+          newThing = 'Sand'
+          break;
+          case 'SandFire': case 'FireStone':
+          newThing = 'Glass'
+          break;
+          case 'SandSwamp': case 'SwampSand':
+          newThing = 'Clay'
+          break;
+          case 'EnergySwamp': case 'SwampEnergy':
+          newThing = 'Life'
           break;
       }
       if(newThing != null){
-
+        app.thingsList.find(o => o.thingType === newThing).unlocked = true;
       }
-      console.log(newThing)
     }
 
       var app = new Vue({
         el: '#app',
         data:{
           selectedThingOne: '',
+          selectedThingOneImg: '',
           selectedThingTwo: '',
+          selectedThingTwoImg: '',
+          thingsList: [
+            {thingType: 'Fire', imgsrc: '/img/fire.png', unlocked: true},
+            {thingType: 'Earth', imgsrc: '/img/earth.png', unlocked: true},
+            {thingType: 'Water', imgsrc: '/img/water.png', unlocked: true},
+            {thingType: 'Air', imgsrc: '/img/air.png', unlocked: true},
+            {thingType: 'Lava', imgsrc: '/img/lava.png', unlocked: false},
+            {thingType: 'Volcano', imgsrc: '/img/volcano.png', unlocked: false},
+            {thingType: 'Dust', imgsrc: '/img/dust.png', unlocked: false},
+            {thingType: 'Swamp', imgsrc: '/img/swamp.png', unlocked: false},
+            {thingType: 'Energy', imgsrc: '/img/energy.png', unlocked: false},
+            {thingType: 'Steam', imgsrc: '/img/steam.png', unlocked: false},
+            {thingType: 'Storm', imgsrc: '/img/storm.png', unlocked: false},
+            {thingType: 'Stone', imgsrc: '/img/stone.png', unlocked: false},
+            {thingType: 'Alcohol', imgsrc: '/img/alcohol.png', unlocked: false},
+            {thingType: 'Metal', imgsrc: '/img/metal.png', unlocked: false},
+            {thingType: 'Sand', imgsrc: '/img/sand.png', unlocked: false},
+            {thingType: 'Glass', imgsrc: '/img/glass.png', unlocked: false},
+            {thingType: 'Clay', imgsrc: '/img/clay.png', unlocked: false},
+            {thingType: 'Life', imgsrc: '/img/life.png', unlocked: false},
+          ]
         },
       });
     </script>
