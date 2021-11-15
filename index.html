@@ -11,9 +11,39 @@
 
   <body>
     <div id="app">
-      <div id="elements">
+      <div id="category-fire">
         <div v-for="thing in thingsList" v-if="thing.unlocked">
-          <thing :thing-type="thing.thingType" :imgsrc="thing.imgsrc"></thing>
+          <thing :thing-type="thing.thingType" :imgsrc="thing.imgsrc" v-if="thing.categoryFire"></thing>
+        </div>
+      </div>
+      <div id="category-water">
+        <div v-for="thing in thingsList" v-if="thing.unlocked">
+          <thing :thing-type="thing.thingType" :imgsrc="thing.imgsrc" v-if="thing.categoryWater"></thing>
+        </div>
+      </div>  
+      <div id="category-air">
+        <div v-for="thing in thingsList" v-if="thing.unlocked">
+          <thing :thing-type="thing.thingType" :imgsrc="thing.imgsrc" v-if="thing.categoryAir"></thing>
+        </div>
+      </div>
+      <div id="category-earth">
+        <div v-for="thing in thingsList" v-if="thing.unlocked">
+          <thing :thing-type="thing.thingType" :imgsrc="thing.imgsrc" v-if="thing.categoryEarth"></thing>
+        </div>
+      </div>
+      <div id="category-abstract">
+        <div v-for="thing in thingsList" v-if="thing.unlocked">
+          <thing :thing-type="thing.thingType" :imgsrc="thing.imgsrc" v-if="thing.categoryAbstract"></thing>
+        </div>
+      </div>
+      <div id="category-plants">
+        <div v-for="thing in thingsList" v-if="thing.unlocked">
+          <thing :thing-type="thing.thingType" :imgsrc="thing.imgsrc" v-if="thing.categoryPlants"></thing>
+        </div>
+      </div>
+      <div id="category-animals">
+        <div v-for="thing in thingsList" v-if="thing.unlocked">
+          <thing :thing-type="thing.thingType" :imgsrc="thing.imgsrc" v-if="thing.categoryAnimals"></thing>
         </div>
       </div>
       <div id="combine">
@@ -119,7 +149,7 @@
           newThing = 'Sand'
           break;
           case 'SandFire': case 'FireStone':
-          newThing = 'Glass'
+          newThing = 'Crystal'
           break;
           case 'SandSwamp': case 'SwampSand':
           newThing = 'Clay'
@@ -141,24 +171,24 @@
           selectedThingTwo: '',
           selectedThingTwoImg: '',
           thingsList: [
-            {thingType: 'Fire', imgsrc: '/img/fire.png', unlocked: true},
-            {thingType: 'Earth', imgsrc: '/img/earth.png', unlocked: true},
-            {thingType: 'Water', imgsrc: '/img/water.png', unlocked: true},
-            {thingType: 'Air', imgsrc: '/img/air.png', unlocked: true},
-            {thingType: 'Lava', imgsrc: '/img/lava.png', unlocked: false},
-            {thingType: 'Volcano', imgsrc: '/img/volcano.png', unlocked: false},
-            {thingType: 'Dust', imgsrc: '/img/dust.png', unlocked: false},
-            {thingType: 'Swamp', imgsrc: '/img/swamp.png', unlocked: false},
-            {thingType: 'Energy', imgsrc: '/img/energy.png', unlocked: false},
-            {thingType: 'Steam', imgsrc: '/img/steam.png', unlocked: false},
-            {thingType: 'Storm', imgsrc: '/img/storm.png', unlocked: false},
-            {thingType: 'Stone', imgsrc: '/img/stone.png', unlocked: false},
-            {thingType: 'Alcohol', imgsrc: '/img/alcohol.png', unlocked: false},
-            {thingType: 'Metal', imgsrc: '/img/metal.png', unlocked: false},
-            {thingType: 'Sand', imgsrc: '/img/sand.png', unlocked: false},
-            {thingType: 'Glass', imgsrc: '/img/glass.png', unlocked: false},
-            {thingType: 'Clay', imgsrc: '/img/clay.png', unlocked: false},
-            {thingType: 'Life', imgsrc: '/img/life.png', unlocked: false},
+            {thingType: 'Fire', imgsrc: '/img/fire.png', unlocked: true, categoryFire: true},
+            {thingType: 'Earth', imgsrc: '/img/earth.png', unlocked: true, categoryEarth: true},
+            {thingType: 'Water', imgsrc: '/img/water.png', unlocked: true, categoryWater: true},
+            {thingType: 'Air', imgsrc: '/img/air.png', unlocked: true, categoryAir: true},
+            {thingType: 'Lava', imgsrc: '/img/lava.png', unlocked: false, categoryFire: true},
+            {thingType: 'Volcano', imgsrc: '/img/volcano.png', unlocked: false, categoryFire: true},
+            {thingType: 'Dust', imgsrc: '/img/dust.png', unlocked: false, categoryAir: true},
+            {thingType: 'Swamp', imgsrc: '/img/swamp.png', unlocked: false, categoryWater: true},
+            {thingType: 'Energy', imgsrc: '/img/energy.png', unlocked: false, categoryAbstract: true},
+            {thingType: 'Steam', imgsrc: '/img/steam.png', unlocked: false, categoryAir: true},
+            {thingType: 'Storm', imgsrc: '/img/storm.png', unlocked: false, categoryAir: true},
+            {thingType: 'Stone', imgsrc: '/img/stone.png', unlocked: false, categoryEarth: true},
+            {thingType: 'Alcohol', imgsrc: '/img/alcohol.png', unlocked: false, categoryWater: true},
+            {thingType: 'Metal', imgsrc: '/img/metal.png', unlocked: false, categoryEarth: true},
+            {thingType: 'Sand', imgsrc: '/img/sand.png', unlocked: false, categoryEarth: true},
+            {thingType: 'Crystal', imgsrc: '/img/glass.png', unlocked: false, categoryEarth: true},
+            {thingType: 'Clay', imgsrc: '/img/clay.png', unlocked: false, categoryEarth: true},
+            {thingType: 'Life', imgsrc: '/img/life.png', unlocked: false, categoryAbstract: true},
           ]
         },
       });
