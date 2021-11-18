@@ -1,22 +1,27 @@
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
 #app{
     display: grid;
-    grid-template-columns: auto auto auto auto auto auto auto auto;
+    grid-template-columns: auto auto auto auto auto auto auto auto auto auto;
 }
 .thing{
     margin: 16px;
-    border: 2px solid black;
-    width: 192px;
-    height: 192px;
+    padding: 8px;
+    border: 8px solid black;
+    width: 160px;
+    height: 160px;
     text-align: center;
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 24px
+}
+p{
+    margin: 0;
+    font-family: 'Press Start 2P', cursive;
+    font-size: 24px;
 }
 .combining-thing{
     margin: 16px;
-    border: 2px solid black;
-    width: 192px;
-    height: 192px;
+    padding: 8px;
+    border: 8px solid black;
+    width: 160px;
+    height: 160px;
     text-align: center;
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 24px
 }

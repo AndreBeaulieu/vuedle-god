@@ -46,6 +46,16 @@
           <thing :thing-type="thing.thingType" :imgsrc="thing.imgsrc" v-if="thing.categoryAnimals"></thing>
         </div>
       </div>
+      <div id="category-animals-2">
+        <div v-for="thing in thingsList" v-if="thing.unlocked">
+          <thing :thing-type="thing.thingType" :imgsrc="thing.imgsrc" v-if="thing.categoryAnimals2"></thing>
+        </div>
+      </div>
+      <div id="category-humans">
+        <div v-for="thing in thingsList" v-if="thing.unlocked">
+          <thing :thing-type="thing.thingType" :imgsrc="thing.imgsrc" v-if="thing.categoryHumans"></thing>
+        </div>
+      </div>
       <div id="combine">
         <combining-thing :selected-thing="selectedThingOne" :imgsrc="selectedThingOneImg" :key="selectedThingOne"></combining-thing>
         <combining-thing :selected-thing="selectedThingTwo" :imgsrc="selectedThingTwoImg" :key="selectedThingTwo"></combining-thing>
@@ -79,9 +89,9 @@
               combineThings();
               setTimeout(function(){
                 app._data.selectedThingOne = "";
-                app._data.selectedThingOneImg = "";
+                app._data.selectedThingOneImg = "/img/blank.png";
                 app._data.selectedThingTwo = "";
-                app._data.selectedThingTwoImg = "";
+                app._data.selectedThingTwoImg = "/img/blank.png";
               }, 2000);
             }
           },
@@ -118,44 +128,98 @@
         case 'FireEarth': case 'EarthFire':
           newThing = 'Lava'
           break;
-          case 'LavaEarth': case 'EarthLava':
+        case 'LavaEarth': case 'EarthLava':
           newThing = 'Volcano'
           break;
-          case 'AirEarth': case 'EarthAir':
+        case 'AirEarth': case 'EarthAir':
           newThing = 'Dust'
           break;
-          case 'EarthWater': case 'WaterEarth':
+        case 'EarthWater': case 'WaterEarth':
           newThing = 'Swamp'
           break;
-          case 'AirFire': case 'FireAir':
+        case 'AirFire': case 'FireAir':
           newThing = 'Energy'
           break;
-          case 'AirWater': case 'WaterAir':
+        case 'AirWater': case 'WaterAir':
           newThing = 'Steam'
           break;
-          case 'AirEnergy': case 'EnergyAir':
+        case 'AirEnergy': case 'EnergyAir':
           newThing = 'Storm'
           break;
-          case 'AirLava': case 'LavaAir':
+        case 'AirLava': case 'LavaAir':
           newThing = 'Stone'
           break;
-          case 'FireWater': case 'WaterFire':
+        case 'FireWater': case 'WaterFire':
           newThing = 'Alcohol'
           break;
-          case 'FireStone': case 'StoneFire':
-          newThing = 'Metal'
+        case 'WaterWater':
+          newThing = 'Ocean'
           break;
-          case 'AirStone': case 'StoneAir':
+        case 'VolcanoBird': case 'BirdVolcano': case 'ReptileVolcano': case 'VolcanoReptile': case 'FishVolcano': case 'VolcanoFish': case 'PrimateVolcano': case 'VolcanoPrimate':
+          newThing = 'Ash'
+          break;
+        case 'AirStone': case 'StoneAir': //I do not like this combo. Find a new one?
           newThing = 'Sand'
           break;
-          case 'SandFire': case 'FireStone':
+        case 'SandFire': case 'FireStone':
           newThing = 'Crystal'
           break;
-          case 'SandSwamp': case 'SwampSand':
-          newThing = 'Clay'
-          break;
-          case 'EnergySwamp': case 'SwampEnergy':
+        case 'EnergySwamp': case 'SwampEnergy':
           newThing = 'Life'
+          break;
+        case 'StoneLife': case 'LifeStone':
+          newThing = 'Egg'
+          break;
+        case 'SandLife': case 'LifeSand':
+          newThing = 'Seeds'
+          break;
+        case 'EggEarth': case 'EarthEgg':
+          newThing = 'Bird'
+          break;
+        case 'EggSwamp': case 'SwampEgg': case 'FishSwamp': case 'SwampFish':
+          newThing = 'Reptile'
+          break;
+        case 'LifeSwamp': case 'SwampLife':
+          newThing = 'Bacteria'
+          break;
+        case 'BacteriaSwamp': case 'SwampBacteria':
+          newThing = 'Fish'
+          break;
+        case 'ReptileEarth': case 'EarthReptile':
+          newThing = 'Mammal'
+          break;
+        case 'HumanMammal': case 'MammalHuman':
+          newThing = 'Domesticated Animal'
+          break;
+        case 'FishOcean': case 'OceanFish':
+          newThing = 'Whale'
+          break;
+        case 'SeedsEarth': case 'EarthSeeds':
+          newThing = 'Tree'
+          break;
+        case 'SeedsSand': case 'SandSeeds':
+          newThing = 'Cactus'
+          break;
+        case 'SeedsOcean': case 'OceanSeeds':
+          newThing = 'Seaweed'
+          break;
+        case 'SeedsSwamp': case 'SwampSeeds':
+          newThing = 'Moss'
+          break;
+        case 'TreeMammal': case 'MammalTree':
+          newThing = 'Primate'
+          break;
+        case 'PrimateLife': case 'LifePrimate':
+          newThing = 'Human'
+          break;
+        case 'HumanAlcohol': case 'AlcoholHuman':
+          newThing = 'Drunk'
+          break;
+        case 'HumanBacteria': case 'BacteriaHuman':
+          newThing = 'Disease'
+          break;
+        case 'HumanFire': case 'FireHuman': case 'HumanLava': case 'LavaHuman': case 'HumanVolcano': case 'VolcanoHuman':
+          newThing = 'Corpse'
           break;
       }
       if(newThing != null){
@@ -167,28 +231,54 @@
         el: '#app',
         data:{
           selectedThingOne: '',
-          selectedThingOneImg: '',
+          selectedThingOneImg: '/img/blank.png',
           selectedThingTwo: '',
-          selectedThingTwoImg: '',
+          selectedThingTwoImg: '/img/blank.png',
           thingsList: [
             {thingType: 'Fire', imgsrc: '/img/fire.png', unlocked: true, categoryFire: true},
-            {thingType: 'Earth', imgsrc: '/img/earth.png', unlocked: true, categoryEarth: true},
-            {thingType: 'Water', imgsrc: '/img/water.png', unlocked: true, categoryWater: true},
-            {thingType: 'Air', imgsrc: '/img/air.png', unlocked: true, categoryAir: true},
             {thingType: 'Lava', imgsrc: '/img/lava.png', unlocked: false, categoryFire: true},
             {thingType: 'Volcano', imgsrc: '/img/volcano.png', unlocked: false, categoryFire: true},
-            {thingType: 'Dust', imgsrc: '/img/dust.png', unlocked: false, categoryAir: true},
+            {thingType: 'Ash', imgsrc: '/img/ash.png', unlocked: false, categoryFire: true},
+            
+            {thingType: 'Water', imgsrc: '/img/water.png', unlocked: true, categoryWater: true},
+            {thingType: 'Ocean', imgsrc: '/img/ocean.png', unlocked: false, categoryWater: true},
             {thingType: 'Swamp', imgsrc: '/img/swamp.png', unlocked: false, categoryWater: true},
-            {thingType: 'Energy', imgsrc: '/img/energy.png', unlocked: false, categoryAbstract: true},
+            {thingType: 'Alcohol', imgsrc: '/img/alcohol.png', unlocked: false, categoryWater: true},
+
+            {thingType: 'Air', imgsrc: '/img/air.png', unlocked: true, categoryAir: true},
+            {thingType: 'Dust', imgsrc: '/img/dust.png', unlocked: false, categoryAir: true},
             {thingType: 'Steam', imgsrc: '/img/steam.png', unlocked: false, categoryAir: true},
             {thingType: 'Storm', imgsrc: '/img/storm.png', unlocked: false, categoryAir: true},
+            
+            {thingType: 'Earth', imgsrc: '/img/earth.png', unlocked: true, categoryEarth: true},
             {thingType: 'Stone', imgsrc: '/img/stone.png', unlocked: false, categoryEarth: true},
-            {thingType: 'Alcohol', imgsrc: '/img/alcohol.png', unlocked: false, categoryWater: true},
-            {thingType: 'Metal', imgsrc: '/img/metal.png', unlocked: false, categoryEarth: true},
             {thingType: 'Sand', imgsrc: '/img/sand.png', unlocked: false, categoryEarth: true},
-            {thingType: 'Crystal', imgsrc: '/img/glass.png', unlocked: false, categoryEarth: true},
-            {thingType: 'Clay', imgsrc: '/img/clay.png', unlocked: false, categoryEarth: true},
+            {thingType: 'Crystal', imgsrc: '/img/crystal.png', unlocked: false, categoryEarth: true},
+            
+            {thingType: 'Energy', imgsrc: '/img/energy.png', unlocked: false, categoryAbstract: true},
             {thingType: 'Life', imgsrc: '/img/life.png', unlocked: false, categoryAbstract: true},
+            {thingType: 'Egg', imgsrc: '/img/egg.png', unlocked: false, categoryAbstract: true},
+            {thingType: 'Seeds', imgsrc: '/img/seeds.png', unlocked: false, categoryAbstract: true},
+
+            {thingType: 'Tree', imgsrc: '/img/tree.png', unlocked: false, categoryPlants: true},
+            {thingType: 'Seaweed', imgsrc: '/img/seaweed.png', unlocked: false, categoryPlants: true},
+            {thingType: 'Cactus', imgsrc: '/img/cactus.png', unlocked: false, categoryPlants: true},
+            {thingType: 'Moss', imgsrc: '/img/moss.png', unlocked: false, categoryPlants: true},
+            
+            {thingType: 'Bacteria', imgsrc: '/img/bacteria.png', unlocked: false, categoryAnimals: true},
+            {thingType: 'Bird', imgsrc: '/img/bird.png', unlocked: false, categoryAnimals: true},
+            {thingType: 'Reptile', imgsrc: '/img/reptile.png', unlocked: false, categoryAnimals: true},
+            {thingType: 'Fish', imgsrc: '/img/fish.png', unlocked: false, categoryAnimals: true},
+
+            {thingType: 'Mammal', imgsrc: '/img/mammal.png', unlocked: false, categoryAnimals2: true},
+            {thingType: 'Primate', imgsrc: '/img/primate.png', unlocked: false, categoryAnimals2: true},
+            {thingType: 'Domesticated Animal', imgsrc: '/img/domesticatedanimal.png', unlocked: false, categoryAnimals2: true},
+            {thingType: 'Whale', imgsrc: '/img/whale.png', unlocked: false, categoryAnimals2: true},
+
+            {thingType: 'Human', imgsrc: '/img/human.png', unlocked: false, categoryHumans: true},
+            {thingType: 'Drunk', imgsrc: '/img/drunk.png', unlocked: false, categoryHumans: true},
+            {thingType: 'Disease', imgsrc: '/img/disease.png', unlocked: false, categoryHumans: true},
+            {thingType: 'Corpse', imgsrc: '/img/corpse.png', unlocked: false, categoryHumans: true},
           ]
         },
       });
