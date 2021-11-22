@@ -38,3 +38,42 @@ p{
     height: 148px;
     text-align: center;
 }
+#tutorial-button{
+    border: 8px solid black;
+    font-family: 'Press Start 2P', cursive;
+    font-size: 24px;
+    color: black;
+    padding: 8px;
+    position: absolute;
+    top: 90vh;
+    left: 10vw;
+}
+
+
+h1{
+    margin:64px;
+    font-family: 'Press Start 2P', cursive;
+    font-size: 40px;
+    text-align: center;
+}
+h2{
+    margin:48px;
+    font-family: 'Press Start 2P', cursive;
+    font-size: 30px;
+    text-align: center;
+}
+h3{
+    margin:64px;
+    font-family: 'Press Start 2P', cursive;
+    font-size: 18px;
+    text-align: center;
+}
+#combo-list{
+    margin-left: 38%;
+    list-style-type: none;
+}
+li{
+    padding: 16px;
+    font-family: 'Press Start 2P', cursive;
+    font-size: 16px;
+}

@@ -62,6 +62,7 @@
         <combining-thing :selected-thing="selectedThingOne" :imgsrc="selectedThingOneImg" :key="selectedThingOne" id="combining-thing-1"></combining-thing>
         <combining-thing :selected-thing="selectedThingTwo" :imgsrc="selectedThingTwoImg" :key="selectedThingTwo" id="combining-thing-2"></combining-thing>
       </div>
+      <a href="/tutorial.html" target="_blank" id="tutorial-button">Solutions Guide</a>
     </div>
     <script> 
 
@@ -82,19 +83,25 @@
         },
         methods:{
           addThing: function(selectedThing, selectedThingImg){
-            if(app._data.selectedThingOne == ""){
-              app._data.selectedThingOne = selectedThing;
-              app._data.selectedThingOneImg = selectedThingImg;
-            }else{
-              app._data.selectedThingTwo = selectedThing;
-              app._data.selectedThingTwoImg = selectedThingImg;
-              combineThings();
-              setTimeout(function(){
-                app._data.selectedThingOne = "";
-                app._data.selectedThingOneImg = "/img/blank.png";
-                app._data.selectedThingTwo = "";
-                app._data.selectedThingTwoImg = "/img/blank.png";
-              }, 2000);
+            if(!app._data.lockout){
+              if(app._data.selectedThingOne == ""){
+                app._data.selectedThingOne = selectedThing;
+                app._data.selectedThingOneImg = selectedThingImg;
+                var snd_elementclick = new Audio('snd/element_click.wav');
+                snd_elementclick.play();
+              }else{
+                app._data.selectedThingTwo = selectedThing;
+                app._data.selectedThingTwoImg = selectedThingImg;
+                app._data.lockout = true;
+                combineThings();
+                setTimeout(function(){
+                  app._data.selectedThingOne = "";
+                  app._data.selectedThingOneImg = "/img/blank.png";
+                  app._data.selectedThingTwo = "";
+                  app._data.selectedThingTwoImg = "/img/blank.png";
+                  app._data.lockout = false;
+                }, 2000);
+              }
             }
           },
           searchImgsrc: function(thingType){
@@ -157,7 +164,7 @@
         case 'WaterWater':
           newThing = 'Ocean'
           break;
-        case 'VolcanoBird': case 'BirdVolcano': case 'ReptileVolcano': case 'VolcanoReptile': case 'FishVolcano': case 'VolcanoFish': case 'PrimateVolcano': case 'VolcanoPrimate':
+        case 'VolcanoBird': case 'BirdVolcano': case 'ReptileVolcano': case 'VolcanoReptile': case 'FishVolcano': case 'VolcanoFish': case 'MammalVolcano': case 'VolcanoMammal':
           newThing = 'Ash'
           break;
         case 'AirStone': case 'StoneAir': //I do not like this combo. Find a new one?
@@ -191,7 +198,7 @@
           newThing = 'Mammal'
           break;
         case 'HumanMammal': case 'MammalHuman':
-          newThing = 'Domesticated Animal'
+          newThing = 'Domestic'
           break;
         case 'FishOcean': case 'OceanFish':
           newThing = 'Whale'
@@ -226,6 +233,12 @@
       }
       if(newThing != null){
         app.thingsList.find(o => o.thingType === newThing).unlocked = true;
+        const randNum = Math.random(0, 2);
+        var snd_newelement = new Audio('snd/new_element_v1.wav');
+        snd_newelement.play();
+      }else{
+        var snd_no = new Audio('snd/no.wav');
+        snd_no.play();
       }
     }
 
@@ -236,6 +249,7 @@
           selectedThingOneImg: '/img/blank.png',
           selectedThingTwo: '',
           selectedThingTwoImg: '/img/blank.png',
+          lockout: false,
           thingsList: [
             {thingType: 'Fire', imgsrc: '/img/fire.png', unlocked: true, categoryFire: true},
             {thingType: 'Lava', imgsrc: '/img/lava.png', unlocked: false, categoryFire: true},
@@ -274,7 +288,7 @@
 
             {thingType: 'Mammal', imgsrc: '/img/mammal.png', unlocked: false, categoryAnimals2: true},
             {thingType: 'Primate', imgsrc: '/img/primate.png', unlocked: false, categoryAnimals2: true},
-            {thingType: 'Domesticated Animal', imgsrc: '/img/domesticatedanimal.png', unlocked: false, categoryAnimals2: true},
+            {thingType: 'Domestic', imgsrc: '/img/domestic.png', unlocked: false, categoryAnimals2: true},
             {thingType: 'Whale', imgsrc: '/img/whale.png', unlocked: false, categoryAnimals2: true},
 
             {thingType: 'Human', imgsrc: '/img/human.png', unlocked: false, categoryHumans: true},
