@@ -11,54 +11,56 @@
 
   <body>
     <div id="app">
-      <div id="category-fire">
-        <div v-for="thing in thingsList" v-if="thing.unlocked">
-          <thing :thing-type="thing.thingType" :imgsrc="thing.imgsrc" v-if="thing.categoryFire"></thing>
+      <div id="things">
+        <div id="category-fire">
+          <div v-for="thing in thingsList" v-if="thing.unlocked">
+            <thing :thing-type="thing.thingType" :imgsrc="thing.imgsrc" v-if="thing.categoryFire"></thing>
+          </div>
         </div>
-      </div>
-      <div id="category-water">
-        <div v-for="thing in thingsList" v-if="thing.unlocked">
-          <thing :thing-type="thing.thingType" :imgsrc="thing.imgsrc" v-if="thing.categoryWater"></thing>
+        <div id="category-water">
+          <div v-for="thing in thingsList" v-if="thing.unlocked">
+            <thing :thing-type="thing.thingType" :imgsrc="thing.imgsrc" v-if="thing.categoryWater"></thing>
+          </div>
+        </div>  
+        <div id="category-air">
+          <div v-for="thing in thingsList" v-if="thing.unlocked">
+            <thing :thing-type="thing.thingType" :imgsrc="thing.imgsrc" v-if="thing.categoryAir"></thing>
+          </div>
         </div>
-      </div>  
-      <div id="category-air">
-        <div v-for="thing in thingsList" v-if="thing.unlocked">
-          <thing :thing-type="thing.thingType" :imgsrc="thing.imgsrc" v-if="thing.categoryAir"></thing>
+        <div id="category-earth">
+          <div v-for="thing in thingsList" v-if="thing.unlocked">
+            <thing :thing-type="thing.thingType" :imgsrc="thing.imgsrc" v-if="thing.categoryEarth"></thing>
+          </div>
         </div>
-      </div>
-      <div id="category-earth">
-        <div v-for="thing in thingsList" v-if="thing.unlocked">
-          <thing :thing-type="thing.thingType" :imgsrc="thing.imgsrc" v-if="thing.categoryEarth"></thing>
+        <div id="category-abstract">
+          <div v-for="thing in thingsList" v-if="thing.unlocked">
+            <thing :thing-type="thing.thingType" :imgsrc="thing.imgsrc" v-if="thing.categoryAbstract"></thing>
+          </div>
         </div>
-      </div>
-      <div id="category-abstract">
-        <div v-for="thing in thingsList" v-if="thing.unlocked">
-          <thing :thing-type="thing.thingType" :imgsrc="thing.imgsrc" v-if="thing.categoryAbstract"></thing>
+        <div id="category-plants">
+          <div v-for="thing in thingsList" v-if="thing.unlocked">
+            <thing :thing-type="thing.thingType" :imgsrc="thing.imgsrc" v-if="thing.categoryPlants"></thing>
+          </div>
         </div>
-      </div>
-      <div id="category-plants">
-        <div v-for="thing in thingsList" v-if="thing.unlocked">
-          <thing :thing-type="thing.thingType" :imgsrc="thing.imgsrc" v-if="thing.categoryPlants"></thing>
+        <div id="category-animals">
+          <div v-for="thing in thingsList" v-if="thing.unlocked">
+            <thing :thing-type="thing.thingType" :imgsrc="thing.imgsrc" v-if="thing.categoryAnimals"></thing>
+          </div>
         </div>
-      </div>
-      <div id="category-animals">
-        <div v-for="thing in thingsList" v-if="thing.unlocked">
-          <thing :thing-type="thing.thingType" :imgsrc="thing.imgsrc" v-if="thing.categoryAnimals"></thing>
+        <div id="category-animals-2">
+          <div v-for="thing in thingsList" v-if="thing.unlocked">
+            <thing :thing-type="thing.thingType" :imgsrc="thing.imgsrc" v-if="thing.categoryAnimals2"></thing>
+          </div>
         </div>
-      </div>
-      <div id="category-animals-2">
-        <div v-for="thing in thingsList" v-if="thing.unlocked">
-          <thing :thing-type="thing.thingType" :imgsrc="thing.imgsrc" v-if="thing.categoryAnimals2"></thing>
-        </div>
-      </div>
-      <div id="category-humans">
-        <div v-for="thing in thingsList" v-if="thing.unlocked">
-          <thing :thing-type="thing.thingType" :imgsrc="thing.imgsrc" v-if="thing.categoryHumans"></thing>
+        <div id="category-humans">
+          <div v-for="thing in thingsList" v-if="thing.unlocked">
+            <thing :thing-type="thing.thingType" :imgsrc="thing.imgsrc" v-if="thing.categoryHumans"></thing>
+          </div>
         </div>
       </div>
       <div id="combine">
-        <combining-thing :selected-thing="selectedThingOne" :imgsrc="selectedThingOneImg" :key="selectedThingOne"></combining-thing>
-        <combining-thing :selected-thing="selectedThingTwo" :imgsrc="selectedThingTwoImg" :key="selectedThingTwo"></combining-thing>
+        <combining-thing :selected-thing="selectedThingOne" :imgsrc="selectedThingOneImg" :key="selectedThingOne" id="combining-thing-1"></combining-thing>
+        <combining-thing :selected-thing="selectedThingTwo" :imgsrc="selectedThingTwoImg" :key="selectedThingTwo" id="combining-thing-2"></combining-thing>
       </div>
     </div>
     <script> 

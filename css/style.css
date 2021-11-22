@@ -1,27 +1,40 @@
 @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
 
-#app{
+#things{
     display: grid;
-    grid-template-columns: auto auto auto auto auto auto auto auto auto auto;
+    grid-template-columns: 196px 196px 196px 196px 196px 196px 196px 196px 196px;
 }
 .thing{
-    margin: 16px;
+    margin: 8px;
     padding: 8px;
     border: 8px solid black;
-    width: 160px;
-    height: 160px;
+    width: 148px;
+    height: 148px;
     text-align: center;
 }
 p{
     margin: 0;
     font-family: 'Press Start 2P', cursive;
-    font-size: 24px;
+    font-size: 18px;
+}
+#combine{
+    display: grid;
+    grid-template-columns: auto auto;
+    position: absolute;
+    left: 0; 
+    right: 0; 
+    top: 80vh;
+    margin-left: auto; 
+    margin-right: auto; 
+}
+#combining-thing-1{
+    justify-self: right;
 }
 .combining-thing{
-    margin: 16px;
+    margin: 8px;
     padding: 8px;
     border: 8px solid black;
-    width: 160px;
-    height: 160px;
+    width: 148px;
+    height: 148px;
     text-align: center;
 }
