@@ -4,7 +4,7 @@
     <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
     <meta charset="utf-8">
     <title>Vuedle God</title>
-    <link rel="icon" type="image/ico" href="img/favicon.ico">
+    <link rel="icon" type="image/ico" href="favicon.ico">
     <link rel="stylesheet" href="css/style.css">
     <meta name="description" content="Recreation of Doodle God in Vue">
   </head>
@@ -66,6 +66,17 @@
     </div>
     <script> 
 
+    const snd_elementclick = new Audio('snd/element_click.wav');  //
+    const snd_newelement_1 = new Audio('snd/new_element_v1.wav'); //
+    const snd_newelement_2 = new Audio('snd/new_element_v2.wav'); //
+    const snd_newelement_3 = new Audio('snd/new_element_v3.wav'); // Declare sound events
+    const snd_no = new Audio('snd/no.wav');                       //
+    const snd_oldelement_1 = new Audio('snd/old_element_v1.wav'); //
+    const snd_oldelement_2 = new Audio('snd/old_element_v2.wav'); //
+    const music = new Audio('snd/music.mp3');                     //
+
+    music.loop = true
+
       Vue.component('thing', {
         props:['thingType', 'imgsrc'],
 
@@ -87,8 +98,8 @@
               if(app._data.selectedThingOne == ""){
                 app._data.selectedThingOne = selectedThing;
                 app._data.selectedThingOneImg = selectedThingImg;
-                var snd_elementclick = new Audio('snd/element_click.wav');
-                snd_elementclick.play();
+                snd_elementclick.play(); //Starts music. Should only work once, which is good.
+                music.play();
               }else{
                 app._data.selectedThingTwo = selectedThing;
                 app._data.selectedThingTwoImg = selectedThingImg;
@@ -100,13 +111,10 @@
                   app._data.selectedThingTwo = "";
                   app._data.selectedThingTwoImg = "/img/blank.png";
                   app._data.lockout = false;
-                }, 2000);
+                }, 1500);
               }
             }
           },
-          searchImgsrc: function(thingType){
-            console.log("test complete")
-          }
         }
       });
 
@@ -130,7 +138,6 @@
 
     function combineThings(){
       const thingCombo = app.selectedThingOne + app.selectedThingTwo;
-      console.log(thingCombo)
 
       var newThing = null;
       switch(thingCombo){
@@ -167,10 +174,10 @@
         case 'VolcanoBird': case 'BirdVolcano': case 'ReptileVolcano': case 'VolcanoReptile': case 'FishVolcano': case 'VolcanoFish': case 'MammalVolcano': case 'VolcanoMammal':
           newThing = 'Ash'
           break;
-        case 'AirStone': case 'StoneAir': //I do not like this combo. Find a new one?
+        case 'AirStone': case 'StoneAir':
           newThing = 'Sand'
           break;
-        case 'SandFire': case 'FireStone':
+        case 'SandFire': case 'FireSand':
           newThing = 'Crystal'
           break;
         case 'EnergySwamp': case 'SwampEnergy':
@@ -231,13 +238,35 @@
           newThing = 'Corpse'
           break;
       }
-      if(newThing != null){
+      if(newThing != null){ //valid combination
+        const thing = app.thingsList.find(o => o.thingType === newThing).unlocked
         app.thingsList.find(o => o.thingType === newThing).unlocked = true;
-        const randNum = Math.random(0, 2);
-        var snd_newelement = new Audio('snd/new_element_v1.wav');
-        snd_newelement.play();
-      }else{
-        var snd_no = new Audio('snd/no.wav');
+        if(thing == false) //new combination
+        {
+          const randNum = Math.floor(Math.random() * 3);
+          switch(randNum){
+            case 0:
+              snd_newelement_1.play();
+              break;
+            case 1:
+              snd_newelement_2.play();
+              break;
+            case 2:
+              snd_newelement_3.play()
+              break;
+          }
+        }else{ //old combination
+          const randNum = Math.floor(Math.random() * 2);
+          switch(randNum){
+            case 0:
+              snd_oldelement_1.play();
+              break;
+            case 1:
+              snd_oldelement_2.play();
+              break;
+          }
+        }
+      }else{ //invalid combination
         snd_no.play();
       }
     }
@@ -245,11 +274,11 @@
       var app = new Vue({
         el: '#app',
         data:{
-          selectedThingOne: '',
+          selectedThingOne: '', //Duplicate key is causing the console to scream. I can't find any actual side effects
           selectedThingOneImg: '/img/blank.png',
-          selectedThingTwo: '',
+          selectedThingTwo: '', //Duplicate key #2
           selectedThingTwoImg: '/img/blank.png',
-          lockout: false,
+          lockout: false, //Probably a better way to do this?
           thingsList: [
             {thingType: 'Fire', imgsrc: '/img/fire.png', unlocked: true, categoryFire: true},
             {thingType: 'Lava', imgsrc: '/img/lava.png', unlocked: false, categoryFire: true},
@@ -282,19 +311,19 @@
             {thingType: 'Moss', imgsrc: '/img/moss.png', unlocked: false, categoryPlants: true},
             
             {thingType: 'Bacteria', imgsrc: '/img/bacteria.png', unlocked: false, categoryAnimals: true},
+            {thingType: 'Fish', imgsrc: '/img/fish.png', unlocked: false, categoryAnimals: true},
             {thingType: 'Bird', imgsrc: '/img/bird.png', unlocked: false, categoryAnimals: true},
             {thingType: 'Reptile', imgsrc: '/img/reptile.png', unlocked: false, categoryAnimals: true},
-            {thingType: 'Fish', imgsrc: '/img/fish.png', unlocked: false, categoryAnimals: true},
 
             {thingType: 'Mammal', imgsrc: '/img/mammal.png', unlocked: false, categoryAnimals2: true},
+            {thingType: 'Whale', imgsrc: '/img/whale.png', unlocked: false, categoryAnimals2: true},
             {thingType: 'Primate', imgsrc: '/img/primate.png', unlocked: false, categoryAnimals2: true},
             {thingType: 'Domestic', imgsrc: '/img/domestic.png', unlocked: false, categoryAnimals2: true},
-            {thingType: 'Whale', imgsrc: '/img/whale.png', unlocked: false, categoryAnimals2: true},
 
             {thingType: 'Human', imgsrc: '/img/human.png', unlocked: false, categoryHumans: true},
             {thingType: 'Drunk', imgsrc: '/img/drunk.png', unlocked: false, categoryHumans: true},
-            {thingType: 'Disease', imgsrc: '/img/disease.png', unlocked: false, categoryHumans: true},
             {thingType: 'Corpse', imgsrc: '/img/corpse.png', unlocked: false, categoryHumans: true},
+            {thingType: 'Disease', imgsrc: '/img/disease.png', unlocked: false, categoryHumans: true},
           ]
         },
       });
